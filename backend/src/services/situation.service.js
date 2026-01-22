@@ -20,7 +20,7 @@ class SituationService {
       if (!motif) throw new Error("Motif introuvable");
       id_motif = motif.id_motif;
 
-      // ⚠️ FIX: Utiliser type_motif au lieu de type
+      // ⚠️ FIX: Utilisation de type_motif au lieu de type pour cohérence avec la base de données
       if (motif.type_motif === "absent") est_present = 0;
       else if (motif.type_motif === "indisponible") est_present = 1;
     }

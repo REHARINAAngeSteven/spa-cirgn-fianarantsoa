@@ -236,12 +236,12 @@ export function PassationService() {
                   <p className="text-xs text-gray-600">Absents</p>
                   <p className="text-xl font-bold text-red-600">{absents}</p>
                 </div>
+              */
+              }
                 <div>
                   <p className="text-xs text-gray-600">Non pointés</p>
                   <p className="text-xl font-bold text-gray-600">{nonPointes}</p>
                 </div>
-              */
-              }
             </div>
           </div>
 

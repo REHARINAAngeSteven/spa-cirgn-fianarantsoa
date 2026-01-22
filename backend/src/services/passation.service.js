@@ -21,10 +21,12 @@ async function creerCompteEntrant(id_militaire, mot_de_passe_temporaire,t) {
   if (!compte) {
     const hash = await bcrypt.hash(mot_de_passe_temporaire, 10);
     compte = await Compte.create({
-      id_militaire,
-      mot_de_passe_hash: hash,
-      est_valide_par_admin: 0,
-    }, { transaction: t });
+    id_militaire,
+    login: `MIL${id_militaire}`,      // ou IM, matricule, etc.
+    role: 'MILITAIRE',                // IMPORTANT
+    mot_de_passe_hash: hash,
+    est_valide_par_admin: 0,
+  }, { transaction: t });
   }
 
   return compte;
@@ -99,7 +101,7 @@ async function initierPassation({
       {
         id_unite,
         id_sortant,
-        id_entrant,
+        id_entrant: entrant.id_compte,
         notes_consignes,
         nouveau_mdp_attente: hashTemp,
         statut: "EN_ATTENTE",
@@ -137,6 +139,7 @@ async function validerPassation(id_passation, id_admin) {
     await compteEntrant.update(
       {
         mot_de_passe_hash: passation.nouveau_mdp_attente,
+        role: "CHARGE_SPA",
         est_valide_par_admin: 1,
       },
       { transaction: t },
