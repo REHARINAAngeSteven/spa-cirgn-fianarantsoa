@@ -145,6 +145,14 @@ async function validerPassation(id_passation, id_admin) {
       { transaction: t },
     );
 
+    const compteSortant = await Compte.findByPk(passation.id_sortant, {
+      transaction: t,
+    });
+    await compteSortant.update(
+      { role: "MILITAIRE" },
+      { transaction: t },
+    )
+
     // 2️⃣ Mise à jour de la passation
     await passation.update(
       {
